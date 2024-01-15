@@ -1,14 +1,20 @@
 import GridPostList from "@/components/shared/GridPostList"
 import Loader from "@/components/shared/Loader";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetUserPosts, useGetUserSavedPosts } from "@/lib/react-query/queriesAndMutation";
+import { useGetUserSavedPosts } from "@/lib/react-query/queries";
 
 const Saved = () => {
   const { user } = useUserContext();
   const { data: posts } = useGetUserSavedPosts()
-  
+  //let formattedPosts;
+  console.log(user)
+
+  console.log(posts)
   const filteredPosts = posts?.documents.filter((item) => item.user.$id === user.id)
-  const formattedPosts = filteredPosts?.map((items) => items.post)
+
+  const formattedPosts = filteredPosts?.map((items) => items.post) as any[];
+
+  console.log(formattedPosts, "formatted")
 
   if(!posts){
     return <Loader/>

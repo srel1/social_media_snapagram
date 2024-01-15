@@ -1,13 +1,13 @@
 import PostForm from "@/components/forms/PostForm"
 import Loader from "@/components/shared/Loader";
-import { useGetPostById } from "@/lib/react-query/queriesAndMutation";
+import { useGetPostById } from "@/lib/react-query/queries";
 import { useParams } from "react-router-dom";
 
 const EditPost = () => {
   const { id } = useParams();
-  const { data: post, isPending } = useGetPostById(id || '');
+  const { data: post, isLoading } = useGetPostById(id as string);
 
-  if(isPending){
+  if(isLoading){
      return <Loader/>
   }
 

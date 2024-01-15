@@ -18,7 +18,7 @@ import { Models } from "appwrite"
 import { useToast } from "../ui/use-toast"
 import { useUserContext } from "@/context/AuthContext"
 import { useNavigate } from "react-router-dom"
-import { useCreatePost, useUpdatePost } from "@/lib/react-query/queriesAndMutation"
+import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries"
  
 type PostFromProps = {
   post?: Models.Document;
@@ -30,9 +30,9 @@ const PostForm = ({ post, action }: PostFromProps) => {
   const { toast } = useToast();
   const navigate = useNavigate()
 
-  const { mutateAsync: createPost, isPending: isLoadingCreate} = useCreatePost();
+  const { mutateAsync: createPost, isLoading: isLoadingCreate} = useCreatePost();
   
-  const { mutateAsync: updatePost, isPending: isLoadingUpdate} = useUpdatePost();
+  const { mutateAsync: updatePost, isLoading: isLoadingUpdate} = useUpdatePost();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof PostValidation>>({

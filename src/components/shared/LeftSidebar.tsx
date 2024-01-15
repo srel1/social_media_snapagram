@@ -3,12 +3,12 @@ import { INITIAL_USER, useUserContext } from '@/context/AuthContext';
 import { sidebarLinks } from '@/constants';
 import { INavLink } from '@/types';
 import { Button } from '../ui/button';
-import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
+import { useSignOutAccount } from '@/lib/react-query/queries';
 
 const LeftSidebar = () => {
   const { pathname } = useLocation();
   const { user, setIsAuthenticated, setUser } = useUserContext();
-  const {mutate: signOut, isSuccess} = useSignOutAccount();
+  const {mutate: signOut} = useSignOutAccount();
   const  navigate = useNavigate();
 
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

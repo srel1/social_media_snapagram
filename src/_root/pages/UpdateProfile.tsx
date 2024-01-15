@@ -1,4 +1,4 @@
-import { useUserContext } from "@/context/AuthContext";
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea";
 import { UserUpdateValidation } from "@/lib/validation";
-import { useGetCurrentUser, useUpdateUser } from "@/lib/react-query/queriesAndMutation";
+import { useGetCurrentUser, useUpdateUser } from "@/lib/react-query/queries";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ import ProfileUploader from "@/components/shared/ProfileUploader";
 
 const UpdateProfile = () => {
   //const { user3 } = useUserContext();
-  const { mutateAsync: updateUser, isPending: isLoadingUpdate} = useUpdateUser();
+  const { mutateAsync: updateUser, isLoading: isLoadingUpdate} = useUpdateUser();
   const navigate = useNavigate()
   const {data: user} = useGetCurrentUser()
   //console.log(user, 'at updateprofile')

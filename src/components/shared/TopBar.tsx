@@ -1,4 +1,4 @@
-import { useSignOutAccount } from '@/lib/react-query/queriesAndMutation';
+import { useSignOutAccount } from '@/lib/react-query/queries';
 import { Link } from 'react-router-dom'
 import { Button } from '../ui/button'
 import { useNavigate } from 'react-router-dom';

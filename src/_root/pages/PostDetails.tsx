@@ -2,7 +2,7 @@ import Loader from "@/components/shared/Loader";
 import PostStats from "@/components/shared/PostStats";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetPostById } from "@/lib/react-query/queriesAndMutation";
+import { useGetPostById } from "@/lib/react-query/queries";
 import { multiFormatDateString } from "@/lib/utils";
 import { Link, useParams } from "react-router-dom"
 
@@ -10,7 +10,7 @@ import { Link, useParams } from "react-router-dom"
 const PostDetails = () => {
   const { user } = useUserContext()
   const { id } = useParams()
-  const { data: post, isPending } = useGetPostById(id || "")
+  const { data: post, isLoading } = useGetPostById(id || "")
 
   const handleDeletePost = () => {
     
@@ -19,7 +19,7 @@ const PostDetails = () => {
 
   return (
     <div className="flex flex-col flex-1 gap-10 overflow-scroll py-10 px-5 md:p-14 custom-scrollbar items-center">
-      {isPending ? <Loader/> : (
+      {isLoading ? <Loader/> : (
         <div className="bg-dark-2 w-full max-w-5xl rounded-[30px] flex flex-col  xl:flex-row border border-dark-4 xl:rounded-l-[24px]">
           <img
             src={post?.imageUrl}

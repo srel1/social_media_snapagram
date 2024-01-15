@@ -1,8 +1,8 @@
 import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
-import { useGetCurrentUser, useGetFollowers, useGetUserPosts, useGetUsers } from "@/lib/react-query/queriesAndMutation"
-import { useEffect, useState } from "react";
+import { useGetCurrentUser, useGetFollowers, useGetUserPosts, useGetUsers } from "@/lib/react-query/queries"
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 

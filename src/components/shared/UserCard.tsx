@@ -1,8 +1,7 @@
 import { Models } from "appwrite"
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import { useFollowUser, useGetCurrentUser, useGetFollowers } from "@/lib/react-query/queriesAndMutation";
-import { account } from "@/lib/appwrite/config";
+import { useFollowUser, useGetCurrentUser, useGetFollowers } from "@/lib/react-query/queries";
 
 type userCardProps = {
     users: Models.Document[];
@@ -14,7 +13,7 @@ const UserCard = ({users}: userCardProps) => {
   const id = userData?.data?.$id.toString();
   const followerList = useGetFollowers()
   const navigate = useNavigate()
-  let disabledFollows = [];
+  let disabledFollows: string[] = [];
 
 
   console.log(followerList.data)

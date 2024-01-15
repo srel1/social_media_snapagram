@@ -5,7 +5,6 @@ import * as z from "zod"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,18 +17,18 @@ import { SignUpValidation } from "@/lib/validation"
 import Loader from "@/components/shared/Loader"
 import { Link } from "react-router-dom"
 import { useToast } from "@/components/ui/use-toast"
-import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutation"
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queries"
 import { useUserContext } from "@/context/AuthContext"
 import { useNavigate } from 'react-router-dom'
 
 
 const SignUpForm = () => {
   const { toast } = useToast();
-  const {checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const {checkAuthUser } = useUserContext();
   const navigate = useNavigate();
 
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount} = useCreateUserAccount();
-  const { mutateAsync: signInAccount, isPending: isSigninIn } = useSignInAccount();
+  const { mutateAsync: signInAccount } = useSignInAccount();
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof SignUpValidation>>({
@@ -149,7 +148,3 @@ return (
 }
 
 export default SignUpForm
-
-function useCreateUserAccountMutation(): { mutateAsync: any; isLoading: any } {
-  throw new Error("Function not implemented.")
-}

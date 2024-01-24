@@ -3,10 +3,10 @@ import { useDeleteSavedPost, useGetCurrentUser, useLikePost, useSavePost } from 
 import { checkIsLiked } from "@/lib/utils";
 import { Models } from "appwrite";
 import { useEffect, useState } from "react";
-import Loader from "./Loader";
+//import Loader from "./Loader";
 
 type PostStatsProps = {
-    post?: Models.Document;
+    post: Models.Document;
     userId: string;
 }
 
@@ -17,16 +17,18 @@ const PostStats = ({post, userId}: PostStatsProps) => {
     const [isSaved, setIsSaved] = useState(false);
 
     const { mutate: likePost } = useLikePost();
-    const { mutate: savePost, isLoading: isSavingPost } = useSavePost();
-    const { mutate: deleteSavedPost, isLoading: isDeletingSaved } = useDeleteSavedPost();
+    const { mutate: savePost } = useSavePost();
+    const { mutate: deleteSavedPost} = useDeleteSavedPost();
 
     const {data: currentUser} = useGetCurrentUser();
 
     const savedPostRecord = currentUser?.save.find((record: Models.Document) => record.post.$id === post?.$id)
 
-    console.log(currentUser, "on post stats")
+    //console.log(currentUser, "on post stats")
+
+    //console.log(userId, 'FROM POST DETAILS', post?.$id)
     
-    console.log(likes)
+    //console.log(likes)
 
     useEffect(() => {
         setIsSaved(!!savedPostRecord)
@@ -47,20 +49,20 @@ const PostStats = ({post, userId}: PostStatsProps) => {
             newLikes.push(userId);
         }
            
-        setLikes(newLikes)
+        
         likePost({ postId: post?.$id || '', likesArray: newLikes})
+        setLikes(newLikes)
     }
 
-    const handleSavePost = (e: React.MouseEvent) => {
+    const handleSavePost = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
         e.stopPropagation();
 
         if(savedPostRecord){
             setIsSaved(false)
-            deleteSavedPost(savedPostRecord.$id)
-        } else {
-            savePost({ postId: post?.$id || '', userId })
-            setIsSaved(true)
-        }
+            return deleteSavedPost(savedPostRecord.$id)
+        } 
+        setIsSaved(true)
+        savePost({ userId: userId, postId: post.$id })     
     }
 
   return (
@@ -77,13 +79,13 @@ const PostStats = ({post, userId}: PostStatsProps) => {
         </div>
 
         <div className="flex gap-2">
-            { isSavingPost || isDeletingSaved ? <Loader/> : <img src={isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg" }
+            <img src={isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg" }
                 alt="save"
                 height={20}
                 width={20}
                 className="cursor-pointer"
                 onClick={handleSavePost}
-            />} 
+            />
         </div>
     </div>
   )
